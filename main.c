@@ -8,6 +8,7 @@
 
 
 int cantidadVentas = 0;
+int cantidadProductos = 3;
 
 
 
@@ -115,7 +116,6 @@ void registerVenta()
 
 
 
-
 void inventario()
 {
     printf("Entro a la opci%cn 2 ", O);
@@ -132,7 +132,7 @@ void inventario()
     switch (opcionInventario)
     {
     case 1:
-//        registrarNewProducto();
+       // registrarNewProducto();
         break;
     case 2:
 
