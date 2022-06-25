@@ -81,34 +81,52 @@ void registerVenta()
            "\nID VENTA: %i\nCliente: %s\nProducto: %s\nCantidad: %i\nTotal: %i\n\nSi desea confirmar la compra, oprime 1 de lo contrario marque 2\n",
            newVenta[cantidadVentas].idVenta+1, newVenta[cantidadVentas].nombreCliente, newProduct[newVenta[cantidadVentas].idProducto -1].nombreInvProducto, newVenta[cantidadVentas].cantidad, newVenta[cantidadVentas].valorTotal);
     int opcion;
-    do{
-        scanf("%i", &opcion);
-    if(opcion==1||opcion==2)
+    do
     {
-        if(opcion==1)
+        scanf("%i", &opcion);
+        if(opcion==1||opcion==2)
         {
-            cantidadVentas = cantidadVentas ++;
-            newVenta[cantidadVentas].idVenta = cantidadVentas;
-            printf("Venta registrada exitosamente");
+            if(opcion==1)
+            {
+                cantidadVentas = cantidadVentas ++;
+                newVenta[cantidadVentas].idVenta = cantidadVentas;
+                printf("Venta registrada exitosamente\n\n");
+            }
+            else
+            {
+                printf("Venta cancelada exitosamente\n\n");
+            }
+
+
         }
         else
         {
-            printf("Venta cancelada exitosamente");
+            printf("Oprima una opci%cn valida\n\n", O);
         }
+    }
+    while(opcion!=1 &&opcion!=2);
 
+    printf("Si desea registrar una venta oprime 1, para ir al menu principal oprime cualquier tecla\n");
+    scanf("%i",&opcion);
+    limpiarConsola();
+    if(opcion==1)
+    {
+        registerVenta();
     }
     else
     {
-        printf("Oprima una opci%cn valida\n", O);
+        main();
     }
-    }while(opcion!=1 &&opcion!=2);
 
 
 
 }
 
 
-
+void limpiarConsola()
+{
+    system("cls");
+}
 
 
 
@@ -158,7 +176,7 @@ void salir()
 }
 void swichtMenuInicio(int opcionSeleccionada)
 {
-    system("cls");
+    limpiarConsola();
     switch (opcionSeleccionada)
     {
     case 1:
