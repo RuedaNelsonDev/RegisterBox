@@ -24,7 +24,7 @@ struct
 void datosQuemados()
 {
     newProduct[0].idInvProducto = 1;
-    memcpy(newProduct[0].nombreInvProducto,"Carne de vaca muerta :V", 6 );
+    memcpy(newProduct[0].nombreInvProducto,"Carne de vaca muerta :V", 40 );
     newProduct[0].precioInvProducto = 14000;
     newProduct[0].cantidadInvProducto = 50;
 
@@ -193,7 +193,28 @@ void registrarNewProducto()
 
 }
 
+void listarProductosInventario()
+{
+    limpiarConsola();
+    int opcion;
+    printf("Listado de pructos existentes\n");
+    for(int i = 0; i<cantidadProducos; i++)
+    {
 
+        printf("Id del producto: %i\nNombre del producto: %s\nPrecio de producto por unidad: %i\nCantidad de producto: %i\n\n\n", newProduct[i].idInvProducto,
+               newProduct[i].nombreInvProducto,newProduct[i].precioInvProducto, newProduct[i].cantidadInvProducto);
+    }
+    printf("Para volver al menu principal oprima 1\n");
+    do
+    {
+        scanf("%i",&opcion);
+
+    }
+    while(opcion!=1);
+
+    main();
+
+}
 
 
 void inventario()
@@ -212,9 +233,11 @@ void inventario()
         registrarNewProducto();
         break;
     case 2:
-
+        listarProductosInventario();
         break;
-//    case 3:
+    case 3:
+        main();
+        break;
 
 
 
@@ -254,12 +277,13 @@ void swichtMenuInicio(int opcionSeleccionada)
 
 int main(void)
 {
+    limpiarConsola();
     int opcionMenu1;
 
     datosQuemados();
 
     printf("Bienvenido,"
-           "\npara continuear elige una de las siguientes acciones"
+           "\npara continuar elige una de las siguientes acciones"
            "\nMenu"
            "\n1.Registrar Venta"
            "\n2.Inventario"
