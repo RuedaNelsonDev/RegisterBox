@@ -8,6 +8,7 @@
 
 
 int cantidadVentas = 0;
+int cantidadProducos = 3;
 
 
 
@@ -57,8 +58,6 @@ struct
 void registerVenta()
 {
 
-    printf("Entro a la opci%cn 1 \n", O);
-
     printf("Id del PRODUCTO: ");
     scanf("%i",&newVenta[cantidadVentas].idProducto);
 
@@ -106,7 +105,7 @@ void registerVenta()
     }
     while(opcion!=1 &&opcion!=2);
 
-    printf("Si desea registrar una venta oprime 1, para ir al menu principal oprime cualquier tecla\n");
+    printf("Si desea registrar una venta oprime 1, e lo contrario oprima cualquier tecla para ir al menu principal\n");
     scanf("%i",&opcion);
     limpiarConsola();
     if(opcion==1)
@@ -129,90 +128,145 @@ void limpiarConsola()
 }
 
 
-
-
-
-
-
-void inventario()
+void registrarNewProducto()
 {
-    printf("Entro a la opci%cn 2 ", O);
+    limpiarConsola();
+    int id= cantidadProducos + 1;
+    int opcion;
+    newProduct[id].idInvProducto = id;
+
+    printf("Ingrese nombre del nuevo producto\n");
+    scanf("%s", &newProduct[id].nombreInvProducto);
+    fflush(stdin);
+
+    printf("Indica el precio del producto por unidad\n");
+    scanf("%i", &newProduct[id].precioInvProducto);
+    fflush(stdin);
 
 
-    int opcionInventario;
+    printf("Indica la cantidad de unidades existentes del producto\n");
+    scanf("%i", &newProduct[id].cantidadInvProducto);
+    limpiarConsola();
 
-    printf("1.Crear producto"
-           "\n2.Listar productos"
-           "\n3.Regresar");
+    printf("Resumen del registro\nId del producto: %i\nNombre del producto: %s\nPrecio de producto por unidad: %i\nCantidad de producto: %i\n", newProduct[id].idInvProducto, newProduct[id].nombreInvProducto,
+           newProduct[id].precioInvProducto, newProduct[id].cantidadInvProducto);
 
-    scanf("%i", &opcionInventario);
+    printf("Desea guardar el producto %s? para confirmar oprima 1 de lo contrario oprima 2\n",newProduct[id].nombreInvProducto);
 
-    switch (opcionInventario)
+
+    do
     {
-    case 1:
-//        registrarNewProducto();
-        break;
-    case 2:
+scanf("%i", &opcion);
+        if(opcion==1 || opcion==2)
+        {
+            if(opcion==1)
+            {
+                printf("Registro exitoso\n\n");
 
-        break;
+            }
+            if(opcion==2)
+            {
+                printf("Registro cancelado\n\n");
+
+            }
+        }
+        else
+        {
+            printf("Oprima una opci%cn valida\n\n", O);
+        }
+        }while(opcion!=1&&opcion!=2);
+
+        printf("Si desea registrar un nuevo producto oprima 1, de lo contrario oprima cualquier tecla para ir al menu principal\n");
+        scanf("%i",&opcion);
+        limpiarConsola();
+        if(opcion==1)
+        {
+            registrarNewProducto();
+            }
+            else
+            {
+                main();
+            }
+
+    }
+
+
+
+
+    void inventario()
+    {
+        int opcionInventario;
+
+        printf("1.Crear producto"
+               "\n2.Listar productos"
+               "\n3.Regresar\n");
+
+        scanf("%i", &opcionInventario);
+
+        switch (opcionInventario)
+        {
+        case 1:
+            registrarNewProducto();
+            break;
+        case 2:
+
+            break;
 //    case 3:
 
 
 
 
 
+        }
+
     }
-
-}
-void listVentas()
-{
-    printf("Entro a la opci%cn 3 ", O);
-
-}
-void salir()
-{
-    printf("Entro a la opci%cn 4 ", O);
-
-}
-void swichtMenuInicio(int opcionSeleccionada)
-{
-    limpiarConsola();
-    switch (opcionSeleccionada)
+    void listVentas()
     {
-    case 1:
-        registerVenta();
-        break;
-    case 2:
-        inventario();
-        break;
-    case 3:
-        listVentas();
-        break;
-    case 4:
-        salir();
-        break;
+
+    }
+    void salir()
+    {
+
+    }
+    void swichtMenuInicio(int opcionSeleccionada)
+    {
+        limpiarConsola();
+        switch (opcionSeleccionada)
+        {
+        case 1:
+            registerVenta();
+            break;
+        case 2:
+            inventario();
+            break;
+        case 3:
+            listVentas();
+            break;
+        case 4:
+            salir();
+            break;
+        }
+
     }
 
-}
+    int main(void)
+    {
+        int opcionMenu1;
 
-int main(void)
-{
-    int opcionMenu1;
+        datosQuemados();
 
-    datosQuemados();
+        printf("Bienvenido,"
+               "\npara continuear elige una de las siguientes acciones"
+               "\nMenu"
+               "\n1.Registrar Venta"
+               "\n2.Inventario"
+               "\n3.Lstar Ventas"
+               "\n4.Salir\n");
+        scanf("%i", &opcionMenu1);
 
-    printf("Bienvenido,"
-           "\npara continuear elige una de las siguientes acciones"
-           "\nMenu"
-           "\n1.Registrar Venta"
-           "\n2.Inventario"
-           "\n3.Lstar Ventas"
-           "\n4.Salir\n");
-    scanf("%i", &opcionMenu1);
-
-    swichtMenuInicio(opcionMenu1);
+        swichtMenuInicio(opcionMenu1);
 
 
-    getch();
-    return EXIT_SUCCESS;
-}
+        getch();
+        return EXIT_SUCCESS;
+    }
