@@ -26,7 +26,7 @@ struct
 void datosQuemados()
 {
     newProduct[0].idInvProducto = 1;
-    memcpy(newProduct[0].nombreInvProducto,"Carne de vaca muerta :V", 40 );
+    memcpy(newProduct[0].nombreInvProducto,"Carne de res", 40 );
     newProduct[0].precioInvProducto = 14000;
     newProduct[0].cantidadInvProducto = 50;
 
@@ -313,7 +313,7 @@ int main(void)
     datosQuemados();
     menus("Bienvenido,"
           "\npara continuar elige una de las siguientes acciones"
-          "\nMenu"
+          "\nMenu Principal\n"
           "\n1.Registrar Venta"
           "\n2.Inventario"
           "\n3.Listar Ventas"
