@@ -5,13 +5,39 @@
 
 #define O 162 //Constante en la que se guarda un número que en ascii es una letra
 
+#define VALUE_SIZE 256
+#define FLOAT_POINT '.'
+
 
 
 int cantidadVentas = 0;
 int cantidadProducos = 3;
 int opcionMenus;
 
+int numberValidate(char number[]) {
+    int i = 0, x = 0;
 
+    for (i = 0; i < VALUE_SIZE; i++) {   /* If it sure that "number" come whitout spaces, use srtlen(number) instead VALUE_SIZE. */
+
+        if (number[i] == FLOAT_POINT)
+            x++;
+
+        if (!isdigit(number[i]) && number[i] != FLOAT_POINT && number[i] != '\0')
+            return 3;   /* Not a valid number. */
+    }
+
+    if (x == 0){
+            printf("Es entero");
+         return 1;   /* Integer number. */
+    }
+
+
+    if (x == 1)
+        return 2;   /* Float number. */
+
+    if (x > 1)
+        return 3;   /* Not a valid number. */
+}
 
 
 struct
@@ -55,7 +81,9 @@ struct
 } venta, newVenta[100]
 ;
 
-
+int checkNumber ()
+{
+}
 
 void registerVenta()
 {
@@ -65,68 +93,77 @@ void registerVenta()
     fflush(stdin);
     int opcion;
     fflush(stdin);
+    int numeroRetorno;
+    char valorIngreso[VALUE_SIZE] ;
 
     do
     {
 
         printf("\nId del PRODUCTO: ");
 
-        scanf("%i",&newVenta[cantidadVentas].idProducto);
-        fflush(stdin);
+        scanf("%i",&valorIngreso);
 
-        printf("\nCANTIDAD a comprar: ");
-        scanf("%i",&newVenta[cantidadVentas].cantidad);
+        numeroRetorno = numberValidate(valorIngreso);
 
-        newVenta[cantidadVentas].valorTotal =  newVenta[cantidadVentas].cantidad * newProduct[newVenta[cantidadVentas].idProducto -1 ].precioInvProducto;
-
-
-
-        printf("\nResumen de la compra"
-               "\nCliente: %s\nID del Producto: %i\nProducto: %s\nCantidad: %i\nTotal: %i\n\nSi desea confirmar la compra, oprime 1 de lo contrario marque 2\n",
-               newVenta[cantidadVentas].nombreCliente,newVenta[cantidadVentas].idVenta+1,  newProduct[newVenta[cantidadVentas].idProducto -1].nombreInvProducto,
-               newVenta[cantidadVentas].cantidad, newVenta[cantidadVentas].valorTotal);
-        int resta = newVenta[cantidadVentas].cantidad;
-        do
+        if(numeroRetorno==1)
         {
+            strcpy(newVenta[cantidadVentas].idProducto, valorIngreso);
+            fflush(stdin);
 
-            scanf("%i", &opcion);
+            printf("\nCANTIDAD a comprar: ");
+            scanf("%i",&newVenta[cantidadVentas].cantidad);
 
-            if(opcion==1||opcion==2)
+            newVenta[cantidadVentas].valorTotal =  newVenta[cantidadVentas].cantidad * newProduct[newVenta[cantidadVentas].idProducto -1 ].precioInvProducto;
+
+
+
+            printf("\nResumen de la compra"
+                   "\nCliente: %s\nID del Producto: %i\nProducto: %s\nCantidad: %i\nTotal: %i\n\nSi desea confirmar la compra, oprime 1 de lo contrario marque 2\n",
+                   newVenta[cantidadVentas].nombreCliente,newVenta[cantidadVentas].idVenta+1,  newProduct[newVenta[cantidadVentas].idProducto -1].nombreInvProducto,
+                   newVenta[cantidadVentas].cantidad, newVenta[cantidadVentas].valorTotal);
+            int resta = newVenta[cantidadVentas].cantidad;
+            do
             {
-                if(opcion==1)
+
+                scanf("%i", &opcion);
+
+                if(opcion==1||opcion==2)
                 {
+                    if(opcion==1)
+                    {
 
-                    newVenta[cantidadVentas].idVenta = cantidadVentas+1;
+                        newVenta[cantidadVentas].idVenta = cantidadVentas+1;
 
-                    printf("Cantidad existente: %d\n",  newProduct[newVenta[cantidadVentas].idProducto].cantidadInvProducto);
+                        printf("Cantidad existente: %d\n",  newProduct[newVenta[cantidadVentas].idProducto].cantidadInvProducto);
 
-                    printf("Cantidad a restar %i\n",newVenta[cantidadVentas].cantidad);
+                        printf("Cantidad a restar %i\n",newVenta[cantidadVentas].cantidad);
 
-                    printf("Resta: %i", resta);
+                        printf("Resta: %i", resta);
 
-                    newProduct[newVenta[cantidadVentas].idProducto].cantidadInvProducto= newProduct[newVenta[cantidadVentas].idProducto].cantidadInvProducto - newVenta[cantidadVentas].cantidad;
+                        newProduct[newVenta[cantidadVentas].idProducto].cantidadInvProducto= newProduct[newVenta[cantidadVentas].idProducto].cantidadInvProducto - newVenta[cantidadVentas].cantidad;
 
 
-                    printf("Cantidad existente: %i",  newProduct[newVenta[cantidadVentas].idProducto].cantidadInvProducto);
-                    printf("Venta registrada exitosamente\n\n");
-                    cantidadVentas++;
+                        printf("Cantidad existente: %i",  newProduct[newVenta[cantidadVentas].idProducto].cantidadInvProducto);
+                        printf("Venta registrada exitosamente\n\n");
+                        cantidadVentas++;
+                    }
+                    else
+                    {
+                        printf("Venta cancelada exitosamente\n\n");
+                    }
+
+
                 }
                 else
                 {
-                    printf("Venta cancelada exitosamente\n\n");
+                    printf("Oprima una opci%cn valida\n\n", O);
                 }
-
-
             }
-            else
-            {
-                printf("Oprima una opci%cn valida\n\n", O);
-            }
+            while(opcion!=1 &&opcion!=2);
+
+            printf("Si desea registrar una venta oprime 1, de lo contrario oprima cualquier tecla para ir al menu principal\n");
+            scanf("%i",&opcion);
         }
-        while(opcion!=1 &&opcion!=2);
-
-        printf("Si desea registrar una venta oprime 1, de lo contrario oprima cualquier tecla para ir al menu principal\n");
-        scanf("%i",&opcion);
     }
     while(opcion==1);
 
@@ -136,7 +173,10 @@ void registerVenta()
 
     main();
 
+
 }
+
+
 
 
 void limpiarConsola()
@@ -236,9 +276,9 @@ void listarProductosInventario()
 
 void inventario()
 {
-           menus("1.Crear producto"
-           "\n2.Listar productos"
-           "\n3.Regresar\n");
+    menus("1.Crear producto"
+          "\n2.Listar productos"
+          "\n3.Regresar\n");
 
     scanf("%i", &opcionMenus);
 
@@ -322,3 +362,5 @@ int main(void)
 
     swichtMenuInicio(opcionMenus);
 }
+
+
